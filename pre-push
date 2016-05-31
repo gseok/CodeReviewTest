@@ -29,10 +29,10 @@ do
 done
 
 TITLE="New commit is pushed\n"
-SUB_TITLE="remote($remote), url($url)\n"
-COMMIT_TITLE="$COMMIT_ID $COMMIT_MESSAGE"
+SUB_TITLE="remote($remote), url($url)\n\n"
+COMMIT_TITLE="$COMMIT_ID$COMMIT_MESSAGE"
 
-TOTAL_MESSAGE="$TITLE $SUB_TITLE $COMMIT_TITLE"
+TOTAL_MESSAGE="$TITLE$SUB_TITLE$COMMIT_TITLE"
 
 printf "$TOTAL_MESSAGE"
 
