@@ -33,7 +33,7 @@ SUB_TITLE="remote($remote), url($url)\n\n"
 COMMIT_TITLE="$COMMIT_ID$COMMIT_MESSAGE"
 
 TOTAL_MESSAGE="$TITLE$SUB_TITLE$COMMIT_TITLE"
-CURL_DATA="'{\"text\": \"$TOTAL_MESSAGE\"}'"
+CURL_DATA=`echo "'{\"text\": \"$TOTAL_MESSAGE\"}'"`
 
 curl -X POST -d $CURL_DATA -s https://pen7p9bfi3.execute-api.ap-northeast-1.amazonaws.com/prod/localGerritPushToTelegram > /dev/null
 
