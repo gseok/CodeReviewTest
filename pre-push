@@ -34,6 +34,6 @@ COMMIT_TITLE="$COMMIT_ID$COMMIT_MESSAGE"
 
 TOTAL_MESSAGE="$TITLE$SUB_TITLE$COMMIT_TITLE"
 
-curl -X POST -d '{"text": "$TOTAL_MESSAGE"}' https://pen7p9bfi3.execute-api.ap-northeast-1.am azonaws.com/prod/localGerritPushToTelegram
+curl -X POST -d '{"text": "$TOTAL_MESSAGE"}' https://pen7p9bfi3.execute-api.ap-northeast-1.amazonaws.com/prod/localGerritPushToTelegram 2>&1 > /dev/null
 
 exit 0
