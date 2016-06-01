@@ -47,7 +47,7 @@ var remote_sha = stdin[3];
 function printlog() {
     console.log('-----------------');
     console.log('args >', remote, url);
-    console.log('stdin >', stdin);
+    console.log('stdin >', stdin[0], stdin[1], stdin[2], stdin[3]);
     console.log('-----------------');
 }
 printlog();
