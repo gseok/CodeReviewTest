@@ -48,7 +48,7 @@ if (os.indexOf('linux') > -1) {
     var size = fs.fstatSync(process.stdin.fd).size;
     stdin = fs.readSync(process.stdin.fd, size)[0].toString().split(' ');
 }
-console.log('stdin > ', stdin);
+//console.log('stdin > ', stdin);
 
 var local_ref = stdin[0];
 var local_sha = stdin[1];
