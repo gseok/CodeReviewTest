@@ -32,12 +32,15 @@ TITLE="New commit is pushed\n"
 SUB_TITLE="remote($remote), url($url)\n\n"
 COMMIT_TITLE="$COMMIT_ID$COMMIT_MESSAGE"
 
-TOTAL_MESSAGE="'{\"text\":\"$TITLE$SUB_TITLE$COMMIT_TITLE\"}'"
+TOTAL_MESSAGE="$TITLE$SUB_TITLE$COMMIT_TITLE"
 
-echo $TOTAL_MESSAGE
+echo "{'payload': {'text': '$TOTAL_MESSAGE'}}" > git-tmp.txt
 
-
-#curl -X POST -d $TEST  https://pen7p9bfi3.execute-api.ap-northeast-1.amazonaws.com/prod/localGerritPushToTelegram 
+curl -X POST \
+     -H 'Accept: application/text' \
+     -H 'Content-type: application/json' \
+     -d @git-tmp.txt \
+     https://pen7p9bfi3.execute-api.ap-northeast-1.amazonaws.com/prod/localGerritPushToTelegram 
 # -s > /dev/null
 
 exit 0
