@@ -45,7 +45,8 @@ var stdin;
 if (os.indexOf('linux') > -1) {
     stdin = fs.readFileSync('/dev/stdin').toString().split(' ');
 } else if (os.indexOf('win32') > -1) {
-    stdin = fs.readSync(process.stdin.fd).toString().split(' ');
+    var size = fs.fstatSync(process.stdin.fd).size;
+    stdin = fs.readSync(process.stdin.fd, size)[0].toString().split(' ');
 }
 console.log('stdin > ', stdin);
 
