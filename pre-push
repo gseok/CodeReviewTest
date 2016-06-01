@@ -44,6 +44,15 @@ var local_sha = stdin[1];
 var remote_ref = stdin[2];
 var remote_sha = stdin[3];
 
+function printlog() {
+    console.log('-----------------');
+    console.log('args >', remote, url);
+    console.log('stdin >', stdin);
+    console.log('-----------------');
+}
+printlog();
+
+
 // get git commit information, git show --stat $local_sha
 var gitShowStat = spawn('git', ['show', '--stat', local_sha]);
 
