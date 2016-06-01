@@ -1,0 +1,8 @@
+{'payload': {'text': 'New commit is pushed\nremote(origin), url(https://github.com/gseok/CodeReviewTest.git)\n\nnew commit id(2b01ab10dc2d406fe5ef94011bc785be08ee5032), parent commit id(26fef29199a8efe57228ea7b30977143b257ca1b)\ncommit 2b01ab10dc2d406fe5ef94011bc785be08ee5032
+Author: gyeongseok.seo <gseok.seo@gmail.com>
+Date:   Wed Jun 1 11:00:17 2016 +0900
+
+    test1
+
+ pre-push | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)'}}
