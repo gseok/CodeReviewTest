@@ -38,7 +38,7 @@ var remote = args[0];
 var url = args[1];
 
 // get stdin data
-var stdin = fs.readFileSync('/dev/stdin').toString().split('\n');
+var stdin = fs.readFileSync('/dev/stdin').toString().split(' ');
 var local_ref = stdin[0];
 var local_sha = stdin[1];
 var remote_ref = stdin[2];
