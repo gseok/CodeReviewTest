@@ -72,7 +72,7 @@ gitShowStat.stdout.on('data', function (data) {
     var title =    'New commit is pushed\n';
     var subTitle = 'remote(' + remote + '), ' + 'url(' + url + ')\n';
     var dim =      '----------------------------------------------\n';
-    
+
     // create message
     var message = title + subTitle + dim + newCommit;
 
@@ -87,19 +87,19 @@ gitShowStat.stdout.on('data', function (data) {
     var options = {
         host: '4kgwljo67l.execute-api.ap-northeast-1.amazonaws.com',
         path: '/prod/localGerritPushToTelegram',
-	method: 'POST',
-	headers: {
+        method: 'POST',
+        headers: {
             'x-api-key': '5PWa04DpzE9riyNktLtcO525Pcs2a0nb5KUdvypw',
-	    'Content-Length': Buffer.byteLength(post_data)
-	}
+            'Content-Length': Buffer.byteLength(post_data)
+        }
     };
 
     var req = https.request(options, function(res) {
-	res.setEncoding('utf8');
-	res.on('data', function (chunk) {
-            console.log('Response: ' + chunk);
+        res.setEncoding('utf8');
+        res.on('data', function (chunk) {
+            //console.log('Response: ' + chunk);
             exit();
-	});
+        });
     });
 
     req.write(post_data);
