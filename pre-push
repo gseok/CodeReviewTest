@@ -32,10 +32,10 @@ TITLE="New commit is pushed\n"
 SUB_TITLE="remote($remote), url($url)\n\n"
 COMMIT_TITLE="$COMMIT_ID$COMMIT_MESSAGE"
 
-TOTAL_MESSAGE="\'{\"text\": \"$TITLE$SUB_TITLE$COMMIT_TITLE\"}\'"
+TOTAL_MESSAGE="'{\"text\":\"$TITLE$SUB_TITLE$COMMIT_TITLE\"}'"
 
 echo $TOTAL_MESSAGE
 
-#curl -X POST -d $TOTAL_MESSAGE -s https://pen7p9bfi3.execute-api.ap-northeast-1.amazonaws.com/prod/localGerritPushToTelegram > /dev/null
+curl -X POST -d $TOTAL_MESSAGE -s https://pen7p9bfi3.execute-api.ap-northeast-1.amazonaws.com/prod/localGerritPushToTelegram > /dev/null
 
 exit 0
