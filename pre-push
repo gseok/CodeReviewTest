@@ -50,7 +50,7 @@ function printlog() {
     console.log('stdin >', stdin[0], stdin[1], stdin[2], stdin[3]);
     console.log('-----------------');
 }
-printlog();
+//printlog();
 
 
 // get git commit information, git show --stat $local_sha
