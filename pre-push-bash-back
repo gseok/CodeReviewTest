@@ -1,0 +1,46 @@
+#!/bin/bash
+
+# An example hook script to verify what is about to be pushed.  Called by "git
+# push" after it has checked the remote status, but before anything has been
+# pushed.  If this script exits with a non-zero status nothing will be pushed.
+#
+# This hook is called with the following parameters:
+#
+# $1 -- Name of the remote to which the push is being done
+# $2 -- URL to which the push is being done
+#
+# If pushing without using a named remote those arguments will be equal.
+#
+# Information about the commits which are being pushed is supplied as lines to
+# the standard input in the form:
+#
+#   <local ref> <local sha1> <remote ref> <remote sha1>
+#
+# This sample shows how to prevent push of commits where the log message starts
+# with "WIP" (work in progress).
+
+remote="$1"
+url="$2"
+
+while read local_ref local_sha remote_ref remote_sha
+do
+    COMMIT_ID="new commit id($local_sha), parent commit id($remote_sha)\n"
+    COMMIT_MESSAGE=`git show --stat $local_sha`
+done
+
+TITLE="New commit is pushed\n"
+SUB_TITLE="remote($remote), url($url)\n\n"
+COMMIT_TITLE="$COMMIT_ID$COMMIT_MESSAGE"
+
+TOTAL_MESSAGE="$TITLE$SUB_TITLE$COMMIT_TITLE"
+
+CURL_DATA=`echo "{'payload': {'text': '$TITLE'}}"`
+
+curl -X POST \
+     -H 'Accept: application/text' \
+     -H 'Content-type: application/json' \
+     -d $CURL_DATA \
+     https://pen7p9bfi3.execute-api.ap-northeast-1.amazonaws.com/prod/localGerritPushToTelegram 
+# -s > /dev/null
+
+exit 0

@@ -21,19 +21,80 @@
 # with "WIP" (work in progress).
 **/
 
-// ger arguments
-var args = process.argv.slice(2);
+// exit function
+function exit() {
+    process.exit(0);
+}
 
-console.log(args);
+// module require
+var fs=require('fs');
+var spawn = require('child_process').spawn;
+var https = require('https');
+var querystring = require('querystring');
+
+// get arguments
+var args = process.argv.slice(2);
+var remote = args[0];
+var url = args[1];
 
 // get stdin data
-process.stdin.resume();
-process.stdin.setEncoding('utf8');
-process.stdin.on('data', function (data) {
-    console.log('test', data);
+var stdin = fs.readFileSync('/dev/stdin').toString().split('\n');
+var local_ref = stdin[0];
+var local_sha = stdin[1];
+var remote_ref = stdin[2];
+var remote_sha = stdin[3];
+
+// get git commit information, git show --stat $local_sha
+var gitShowStat = spawn('git', ['show', '--stat', local_sha]);
+
+gitShowStat.stdout.on('data', function (data) {
+    var newCommit = data.toString('utf-8');
+    var title =    'New commit is pushed\n';
+    var subTitle = 'remote(' + remote + '), ' + 'url(' + url + ')\n';
+    var dim =      '----------------------------------------------\n';
+    
+    // create message
+    var message = title + subTitle + dim + newCommit;
+
+    // send message to bot
+    // https://4kgwljo67l.execute-api.ap-northeast-1.amazonaws.com/prod/localGerritPushToTelegram
+    var text = {
+        text: message
+    };
+    var post_data = JSON.stringify(text);
+    console.log(post_data);
+
+    var options = {
+        host: '4kgwljo67l.execute-api.ap-northeast-1.amazonaws.com',
+        path: '/prod/localGerritPushToTelegram',
+	method: 'POST',
+	headers: {
+            'x-api-key': '5PWa04DpzE9riyNktLtcO525Pcs2a0nb5KUdvypw',
+	    'Content-Length': Buffer.byteLength(post_data)
+	}
+    };
+
+    var req = https.request(options, function(res) {
+	res.setEncoding('utf8');
+	res.on('data', function (chunk) {
+            console.log('Response: ' + chunk);
+            exit();
+	});
+    });
+
+    req.write(post_data);
+    req.end();
+
+    req.on('error', function(e) {
+        console.log('error', e);
+
+        // exit
+        exit();
+    });
 });
 
-
-// success exit
-process.exit(0);
+gitShowStat.stderr.on('data', function (data) {
+    console.log('error', data.toString('utf-8'));
+    exit();
+});
 
