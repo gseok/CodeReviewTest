@@ -71,7 +71,7 @@ gitShowStat.stdout.on('data', function (data) {
         text: message
     };
     var post_data = JSON.stringify(text);
-    console.log(post_data);
+    //console.log(post_data);
 
     var options = {
         host: '4kgwljo67l.execute-api.ap-northeast-1.amazonaws.com',
